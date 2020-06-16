@@ -29,8 +29,9 @@ function processFirstItem(stringList, callback) {
  * 1. What is the difference between counter1 and counter2?
  * 
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ * counter2 uses a closure; count is declared before the function exists
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * it's useful to contain a variable more often than not; global variables are helpful so they can always be accessed
  *
 */
 
@@ -38,7 +39,7 @@ function processFirstItem(stringList, callback) {
 function counterMaker() {
   let count = 0;
   return function counter() {
-   return count++;
+  return count++;
   }
 }
 
@@ -56,11 +57,13 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(points){
+  return Math.floor(Math.random() * Math.floor(points));
 }
+
+console.log(inning(3));
+
+// expected output: 0, 1 or 2
 
 /* Task 3: finalScore()
 
@@ -75,12 +78,15 @@ finalScore(inning, 9) might return:
 }
 
 */ 
-
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(inning, numberOfInnings){
+  let finalScoreObject = {'Home': 0, 'Away': 0};
+    for(let i = 0; i <= numberOfInnings; i++){
+      finalScoreObject.Home += inning(i);
+      finalScoreObject.Away += inning(i);
+    }
+  return finalScoreObject
 }
+console.log(finalScore(inning,7))
 
 /* Task 4: 
 
@@ -103,8 +109,18 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(inning,num) {
+  const finalGame = [];
+  let home = 0;
+  let away = 0;
+  for (let i = 1; i <= num; i++){ 
+  home += inning(i);
+  away += inning(i);
+  finalGame.push(`${i} inning: ${home} - ${away}`);
+  }
+  return finalGame;
 }
+console.log(scoreboard(inning,8))
+
 
 
